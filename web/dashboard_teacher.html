@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(231,76,60,0.3);
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(231,76,60,0.4);
+        }
+
+        .menu {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu a {
+            margin-right: 25px;
+            text-decoration: none;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .menu a:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(52,152,219,0.35);
+        }
+
+        .menu a.active {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(52,152,219,0.4);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 40px;
+        }
+
+        /* Welcome Section */
+        .welcome-container {
+            text-align: center;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: #34495e;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .school-motto {
+            font-style: italic;
+            color: #2c3e50;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            border: 2px solid #e0e7ff;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            margin: 40px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            text-align: center;
+            border-top: 5px solid #2196F3;
+            transition: all 0.3s;
+            backdrop-filter: blur(18px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 35px rgba(33,150,243,0.25);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #2196F3;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        .activity-list {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            overflow: hidden;
+            backdrop-filter: blur(18px);
+        }
+
+        .activity-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .activity-item:hover {
+            background: #f9f9f9;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #f0f5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #2d4a7a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .menu {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .menu a {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+            
+            .main-container {
+                padding: 0 20px;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Teacher Dashboard</h1>
+        <div>
+            <span style="margin-right: 20px;">Welcome, Teacher!</span>
+            <button class="logout-btn" onclick="location.href='logout'">Logout</button>
+        </div>
+    </div>
+
+    <!-- Menu - UPDATED WITH CORRECT SERVLET NAMES -->
+    <div class="menu">
+        <a href="teacherDashboard" class="active">🏠 Dashboard</a>
+        <a href="teacherGrades">📊 Grade Management</a>
+        <a href="teacherAnnouncements">📢 Announcements</a>
+        <a href="teacherCalendar">📅 Calendar</a>
+        <a href="teacherProfile">👤 Profile</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-container">
+            <h1 class="welcome-title">Welcome to Teacher Portal</h1>
+            <h2 class="welcome-subtitle">Bense Secondary High School</h2>
+            <p class="welcome-text">
+                Manage grades, post announcements, and access your schedule through our comprehensive school management system. Your dedication shapes the future!
+            </p>
+            <p class="school-motto">"Educating Minds, Inspiring Futures"</p>
+        </div>
+
+        <!-- Quick Stats - UPDATED: Removed classes-related stats -->
+        <div class="quick-stats">
+            <h2 class="section-title">Teaching Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="assignmentsGraded">--</div>
+                    <div class="stat-label">Assignments Graded</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value" id="studentsCount">--</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-value" id="pendingGrading">--</div>
+                    <div class="stat-label">Pending Grading</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📢</div>
+                    <div class="stat-value" id="announcementsCount">--</div>
+                    <div class="stat-label">Announcements</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions - UPDATED LINKS -->
+        <div class="recent-activity">
+            <h2 class="section-title">Quick Actions</h2>
+            <div class="stats-grid">
+                <div class="stat-card" onclick="location.href='teacherGrades'" style="cursor: pointer;">
+                    <div class="stat-icon">📊</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">Grade Management</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Enter and manage student grades for your subject</p>
+                    <button style="background: #2196F3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Manage Grades</button>
+                </div>
+                
+                <div class="stat-card" onclick="location.href='teacherAnnouncements?action=post'" style="cursor: pointer;">
+                    <div class="stat-icon">📢</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">Create Announcement</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Post announcements to students</p>
+                    <button style="background: #FF9800; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Create Now</button>
+                </div>
+                
+                <div class="stat-card" onclick="location.href='teacherCalendar'" style="cursor: pointer;">
+                    <div class="stat-icon">📅</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">View Calendar</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Check your schedule and events</p>
+                    <button style="background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">View Calendar</button>
+                </div>
+                
+                <div class="stat-card" onclick="location.href='teacherProfile'" style="cursor: pointer;">
+                    <div class="stat-icon">👤</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">My Profile</h3>
+                    <p style="color: #666; margin-bottom: 20px;">View and update your profile</p>
+                    <button style="background: #8e44ad; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">View Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <h2 class="section-title">Recent Activity</h2>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">📝</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Biology grades updated for 25 students</div>
+                        <div class="activity-time">Today, 9:15 AM</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📢</div>
+                    <div class="activity-content">
+                        <div class="activity-title">New announcement posted: Lab Safety Guidelines</div>
+                        <div class="activity-time">Yesterday, 4:30 PM</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📅</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Staff Meeting scheduled for Friday</div>
+                        <div class="activity-time">Dec 14, 2024, 10:00 AM</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📊</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Mid-term grades submitted successfully</div>
+                        <div class="activity-time">Dec 13, 2024, 3:45 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer - UPDATED: Removed unnecessary links -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="teacherDashboard">Home</a>
+                <a href="teacherGrades">Grades</a>
+                <a href="teacherAnnouncements">Announcements</a>
+                <a href="teacherCalendar">Calendar</a>
+                <a href="teacherProfile">Profile</a>
+                <a href="#">Help</a>
+                <a href="#">Contact Admin</a>
+            </div>
+            <div class="copyright">
+                © 2024 Bense Secondary High School - Teacher Portal. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Function to fetch teacher stats
+    function fetchTeacherStats() {
+        const teacherId = "T001"; // This should come from session
+        
+        // Simulate loading data
+        setTimeout(() => {
+            // Mock data for T001 (Biology teacher)
+            document.getElementById('assignmentsGraded').textContent = '48';
+            document.getElementById('studentsCount').textContent = '125';
+            document.getElementById('pendingGrading').textContent = '12';
+            document.getElementById('announcementsCount').textContent = '5';
+        }, 500);
+    }
+
+    // Set active menu item
+    function setActiveMenu() {
+        const currentPage = window.location.pathname;
+        const menuItems = document.querySelectorAll('.menu a');
+        
+        menuItems.forEach(item => {
+            item.classList.remove('active');
+            const href = item.getAttribute('href');
+            
+            if (currentPage.includes(href.replace('.html', '')) || 
+                (currentPage.includes('teacherDashboard') && href === 'teacherDashboard')) {
+                item.classList.add('active');
+            }
+        });
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        setActiveMenu();
+        fetchTeacherStats();
+    });
+    </script>
+</body>
+</html>

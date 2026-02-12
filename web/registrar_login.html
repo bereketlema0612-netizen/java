@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* copy the SAME CSS from admin_login.html */
+        * { box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { margin: 0; height: 100vh; background: linear-gradient(135deg, #f9fbff, #e6f0ff);
+               display: flex; justify-content: center; align-items: center; }
+        .login-container { background:#ffffff; width:420px; border-radius:12px;
+            box-shadow:0 15px 35px rgba(0,80,180,0.2); overflow:hidden; animation:fadeSlide 0.8s ease; }
+        @keyframes fadeSlide { from {opacity:0; transform:translateY(25px);} to {opacity:1; transform:translateY(0);} }
+        .header { text-align:center; padding:30px 40px 10px 40px; }
+        .header h2 { color:#1f3c88; margin:0 0 8px 0; }
+        .header p { color:#666; margin:0; font-size:14px; }
+        .tab-title { text-align:center; padding:10px 40px 0 40px; font-weight:bold; color:#1f3c88; }
+        .tab-content { padding:25px 40px 30px 40px; }
+        .input-group { position:relative; margin-bottom:30px; }
+        .input-group input { width:100%; padding:12px; border:none; border-bottom:2px solid #cfd9f0;
+            outline:none; font-size:16px; background:transparent; transition:0.3s; }
+        .input-group label { position:absolute; top:12px; left:0; color:#7a8bbd; pointer-events:none;
+            transition:0.3s; font-size:15px; }
+        .input-group input:focus,
+        .input-group input:valid { border-bottom-color:#4a7cf0; }
+        .input-group input:focus + label,
+        .input-group input:valid + label { top:-15px; font-size:12px; color:#4a7cf0; }
+        .login-btn { width:100%; padding:14px; border:none; border-radius:25px;
+            background:linear-gradient(135deg,#4a7cf0,#3b6fdc); color:white; font-size:16px;
+            font-weight:bold; cursor:pointer; transition:0.3s ease; margin-top:10px; }
+        .login-btn:hover { background:linear-gradient(135deg,#3b6fdc,#2a5ec8);
+            box-shadow:0 8px 20px rgba(59,111,220,0.3); transform:translateY(-2px); }
+        .footer-links { text-align:center; margin-top:25px; padding:15px 40px 20px 40px; border-top:1px solid #eee; }
+        .back-link { color:#666; text-decoration:none; font-size:14px; }
+        .back-link:hover { color:#1f3c88; }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <div class="header">
+        <h2>Bense Secondary High School</h2>
+        <p>Administrative System Login</p>
+    </div>
+
+    <div class="tab-title">📋 Registrar Login</div>
+
+    <div class="tab-content">
+       <form action="login" method="POST">
+    <div class="input-group">
+        <input type="text" id="registrar-username" name="username" required>
+        <label for="registrar-username">Username</label>
+    </div>
+
+    <div class="input-group">
+        <input type="password" id="registrar-password" name="password" required>
+        <label for="registrar-password">Password</label>
+    </div>
+
+    <input type="hidden" name="role" value="registrar">
+    <button class="login-btn" type="submit">Login</button>
+</form>
+
+    </div>
+
+    <div class="footer-links">
+        <a href="Student_teacher_index.html" class="back-link">← Back to Main Page</a>
+    </div>
+</div>
+</body>
+</html>
+

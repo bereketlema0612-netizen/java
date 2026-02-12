@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(231,76,60,0.3);
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(231,76,60,0.4);
+        }
+
+        .menu {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu a {
+            margin-right: 25px;
+            text-decoration: none;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .menu a:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(52,152,219,0.35);
+        }
+
+        .menu a.active {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(52,152,219,0.4);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 40px;
+        }
+
+        /* Welcome Section */
+        .welcome-container {
+            text-align: center;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: #34495e;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .school-motto {
+            font-style: italic;
+            color: #2c3e50;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            border: 2px solid #e0e7ff;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            margin: 40px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            text-align: center;
+            border-top: 5px solid #2196F3;
+            transition: all 0.3s;
+            backdrop-filter: blur(18px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 35px rgba(33,150,243,0.25);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #2196F3;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        .activity-list {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            overflow: hidden;
+            backdrop-filter: blur(18px);
+        }
+
+        .activity-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .activity-item:hover {
+            background: #f9f9f9;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #f0f5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #2d4a7a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .menu {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .menu a {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+            
+            .main-container {
+                padding: 0 20px;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Notification Badge */
+        .notification-badge {
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 8px;
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            display: none;
+        }
+
+        .menu-item {
+            position: relative;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Student Dashboard</h1>
+        <div>
+            <span style="margin-right: 20px;">Welcome, Student!</span>
+            <button class="logout-btn" onclick="location.href='logout'">Logout</button>
+        </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+        <a href="dashboard_student.html" class="active">🏠 Dashboard</a>
+        <a href="viewProfile">👤 My Profile</a>
+        <a href="viewGrades">📊 My Grades</a>
+        <a href="viewAnnouncements">📢 Announcements</a>
+        <a href="viewCalendar">📅 Calendar</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-container">
+            <h1 class="welcome-title">Welcome to Student Portal</h1>
+            <h2 class="welcome-subtitle">Bense Secondary High School</h2>
+            <p class="welcome-text">
+                Access your academic records, view grades, check announcements, and manage your educational journey 
+                with our comprehensive school management system. Your success is our priority!
+            </p>
+            <p class="school-motto">"Empowering Minds, Building Futures"</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <h2 class="section-title">Academic Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="gradeAvg">--</div>
+                    <div class="stat-label">Grade Average</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="subjectCount">--</div>
+                    <div class="stat-label">Subjects</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value" id="examsCount">--</div>
+                    <div class="stat-label">Exams Taken</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📢</div>
+                    <div class="stat-value" id="announcementsCount">--</div>
+                    <div class="stat-label">Announcements</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <h2 class="section-title">Recent Activity</h2>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon">📊</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Math Mid-term Exam Result Published</div>
+                        <div class="activity-time">Today, 10:30 AM</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📢</div>
+                    <div class="activity-content">
+                        <div class="activity-title">New Announcement: Sports Day Registration</div>
+                        <div class="activity-time">Yesterday, 2:45 PM</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📅</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Parent-Teacher Meeting Scheduled</div>
+                        <div class="activity-time">Dec 15, 2024, 9:00 AM</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📚</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Science Project Submission Deadline</div>
+                        <div class="activity-time">Dec 20, 2024, 5:00 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="recent-activity">
+            <h2 class="section-title">Quick Access</h2>
+            <div class="stats-grid">
+                <div class="stat-card" onclick="location.href='viewProfile'" style="cursor: pointer;">
+                    <div class="stat-icon">👤</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">View Profile</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Check your personal information and registration details</p>
+                    <button style="background: #2196F3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Go to Profile</button>
+                </div>
+                
+                <div class="stat-card" onclick="location.href='viewGrades'" style="cursor: pointer;">
+                    <div class="stat-icon">📊</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">View Grades</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Check your academic performance and exam results</p>
+                    <button style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">View Grades</button>
+                </div>
+                
+                <div class="stat-card" onclick="location.href='viewAnnouncements'" style="cursor: pointer;">
+                    <div class="stat-icon">📢</div>
+                    <h3 style="color: #2c3e50; margin-bottom: 10px;">Announcements</h3>
+                    <p style="color: #666; margin-bottom: 20px;">Stay updated with latest school news and events</p>
+                    <button style="background: #FF9800; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">View Announcements</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="dashboard_student.html">Home</a>
+                <a href="viewProfile">Profile</a>
+                <a href="viewGrades">Grades</a>
+                <a href="viewAnnouncements">Announcements</a>
+                <a href="viewCalendar">Calendar</a>
+                <a href="#">Help</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="copyright">
+                © 2024 Bense Secondary High School - Student Portal. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+   <!-- Add this script to dashboard_student.html -->
+<script>
+// Function to fetch student stats (first version kept but overridden below if needed)
+function fetchStudentStats() {
+    // In a real application, you would make AJAX calls to servlets
+    // For now, we'll use mock data
+    
+    // Simulate loading data
+    setTimeout(() => {
+        document.getElementById('gradeAvg').textContent = '85.5%';
+        document.getElementById('subjectCount').textContent = '6';
+        document.getElementById('examsCount').textContent = '12';
+        document.getElementById('announcementsCount').textContent = '5';
+    }, 500);
+}
+
+// Set active menu item
+function setActiveMenu() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const menuItems = document.querySelectorAll('.menu a');
+    
+    menuItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === currentPage) {
+            item.classList.add('active');
+        }
+    });
+}
+
+// Enhanced student stats with real data
+function fetchStudentStats() {
+    const studentId = "STU9001"; // This should be dynamically set
+    
+    fetch('/StudentManagementSystem/getStudentStats?studentId=' + studentId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('gradeAvg').textContent = data.gradeAverage + '%';
+                document.getElementById('subjectCount').textContent = data.subjectCount;
+                document.getElementById('examsCount').textContent = data.examsCount;
+                document.getElementById('announcementsCount').textContent = data.announcementsCount;
+                
+                if (data.gpa) {
+                    document.getElementById('gpaValue').textContent = data.gpa.toFixed(2);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching stats:', error);
+            document.getElementById('gradeAvg').textContent = '85.5%';
+            document.getElementById('subjectCount').textContent = '9';
+            document.getElementById('examsCount').textContent = '27';
+            document.getElementById('announcementsCount').textContent = '5';
+        });
+}
+
+// Add GPA card to dashboard HTML if not already there
+function addGPACard() {
+    const statsGrid = document.querySelector('.stats-grid');
+    if (statsGrid && !document.getElementById('gpa-card')) {
+        const gpaCard = document.createElement('div');
+        gpaCard.className = 'stat-card';
+        gpaCard.id = 'gpa-card';
+        gpaCard.innerHTML = `
+            <div class="stat-icon">🎓</div>
+            <div class="stat-value" id="gpaValue">--</div>
+            <div class="stat-label">GPA (4.0 Scale)</div>
+        `;
+        statsGrid.appendChild(gpaCard);
+    }
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    setActiveMenu();
+    addGPACard();
+    fetchStudentStats();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>School Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Match dashboard background */
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header similar to dashboard */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .school-info h1 {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .school-info p {
+            font-size: 14px;
+            color: #e0e7ff;
+        }
+
+        /* Header login buttons styled like dashboard menu buttons */
+        .login-options {
+            display: flex;
+            gap: 15px;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid white;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-btn:hover {
+            background: white;
+            color: #2c3e50;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(255,255,255,0.25);
+        }
+
+        /* Container similar to dashboard main-container */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 40px;
+        }
+
+        /* Welcome box styled like dashboard welcome-container */
+        .welcome-container {
+            text-align: center;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: #34495e;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .school-motto {
+            font-style: italic;
+            color: #2c3e50;
+            margin-top: 15px;
+            font-size: 1.1rem;
+            background: #f8f9fa;
+            padding: 12px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            border: 2px solid #e0e7ff;
+        }
+
+        /* About section styled like dashboard cards */
+        .about-school {
+            background: rgba(255,255,255,0.95);
+            padding: 35px;
+            border-radius: 20px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            border-left: 6px solid #2ecc71;
+            backdrop-filter: blur(18px);
+        }
+
+        .about-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+            font-weight: 700;
+        }
+
+        .about-text {
+            color: #34495e;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .about-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .feature-item {
+            flex: 1;
+            min-width: 260px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #eaeaea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .feature-item strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid #2ecc71;
+            padding-bottom: 6px;
+        }
+
+        /* Slide-in login panel: same palette */
+        .login-card-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 380px;
+            height: 100vh;
+            background: rgba(255,255,255,0.98);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.18);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+            backdrop-filter: blur(16px);
+        }
+
+        .login-card-container.active {
+            transform: translateX(0);
+        }
+
+        .login-card-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .login-card-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .close-login {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .close-login:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .login-form-content {
+            padding: 25px 25px 30px 25px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        /* Forms: slide from right */
+        .login-form {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .login-form.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #e0e7ff;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 3px 10px rgba(52,152,219,0.35);
+        }
+
+        .form-submit-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(52,152,219,0.45);
+        }
+
+        .login-help {
+            text-align: center;
+            margin-top: 18px;
+            color: #7f8c8d;
+            font-size: 13px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Footer same palette as dashboard */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #2d4a7a;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #2ecc71;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .main-container {
+                padding: 0 20px;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .welcome-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .about-school {
+                padding: 25px;
+            }
+
+            .login-card-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="school-info">
+                <h1>Bense Secondary High School</h1>
+                <p>Student Management System</p>
+            </div>
+            <div class="login-options">
+                <button class="login-btn" onclick="openLogin('student')">Student Login</button>
+                <button class="login-btn" onclick="openLogin('teacher')">Teacher Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Welcome Section -->
+        <div class="welcome-container">
+            <h1 class="welcome-title">Welcome to Bense High School</h1>
+            <h2 class="welcome-subtitle">Student & Teacher Portal</h2>
+            <p class="welcome-text">
+                Access your academic records, view grades, check announcements, and manage your educational journey 
+                with our comprehensive school management system.
+            </p>
+            <p class="school-motto">"Empowering Minds, Building Futures"</p>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-school">
+            <h3 class="about-title">About Bense Secondary High School</h3>
+            <p class="about-text">
+                Bense Secondary High School is a leading educational institution committed to providing quality education and holistic development for students. Established with a vision to create responsible citizens and future leaders, our school focuses on academic excellence, character building, and community service.
+            </p>
+            
+            <div class="about-features">
+                <div class="feature-item">
+                    <strong>Our Mission</strong>
+                    To provide quality education that empowers students to achieve their full potential and become productive members of society.
+                </div>
+                <div class="feature-item">
+                    <strong>Our Vision</strong>
+                    To be a center of excellence in education, fostering innovation, critical thinking, and lifelong learning.
+                </div>
+                <div class="feature-item">
+                    <strong>Our Values</strong>
+                    Integrity, Excellence, Respect, Responsibility, and Community Service.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div>📍</div>
+                    <strong>Address</strong>
+                    <p>Bense High School, Main Campus<br>City, Country</p>
+                </div>
+                <div class="contact-item">
+                    <div>📞</div>
+                    <strong>Phone</strong>
+                    <p>+123 456 7890<br>Office Hours: 8AM-4PM</p>
+                </div>
+                <div class="contact-item">
+                    <div>✉️</div>
+                    <strong>Email</strong>
+                    <p>info@bensehigh.edu<br>support@bensehigh.edu</p>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">About School</a>
+                <a href="#">Academic Calendar</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            
+            <div class="copyright">
+                © 2024 Bense Secondary High School. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <!-- header buttons already there -->
+
+<!-- Slide-in Login Panel -->
+<div class="overlay" onclick="closeLogin()"></div>
+<div class="login-card-container" id="loginCard">
+    <div class="login-card-header">
+        <h2 id="login-title">Login to Portal</h2>
+        <button class="close-login" onclick="closeLogin()">×</button>
+    </div>
+    
+    <div class="login-form-content">
+        <!-- Student form -->
+        <form id="login-student-form" class="login-form" action="login" method="POST">
+            <div class="input-group">
+                <label for="login-student-username">Student ID / Username</label>
+                <input type="text" id="login-student-username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="login-student-password">Password</label>
+                <input type="password" id="login-student-password" name="password" required>
+            </div>
+            <input type="hidden" name="role" value="student">
+            <button type="submit" class="form-submit-btn">Login as Student</button>
+        </form>
+        
+        <!-- Teacher form -->
+        <form id="login-teacher-form" class="login-form" action="login" method="POST">
+            <div class="input-group">
+                <label for="login-teacher-username">Teacher ID / Username</label>
+                <input type="text" id="login-teacher-username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="login-teacher-password">Password</label>
+                <input type="password" id="login-teacher-password" name="password" required>
+            </div>
+            <input type="hidden" name="role" value="teacher">
+            <button type="submit" class="form-submit-btn">Login as Teacher</button>
+        </form>
+        
+        <div class="login-help">
+            Forgot password? Contact system administrator
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        function openLogin(role) {
+            const card = document.getElementById('loginCard');
+            const overlay = document.querySelector('.overlay');
+            const title = document.getElementById('login-title');
+            const studentForm = document.getElementById('login-student-form');
+            const teacherForm = document.getElementById('login-teacher-form');
+
+            // show panel + overlay
+            card.classList.add('active');
+            overlay.classList.add('active');
+
+            // hide both forms first
+            [studentForm, teacherForm].forEach(form => {
+                form.classList.remove('show');
+                form.style.display = 'none';
+            });
+
+            // show only the requested form, with slide-from-right animation
+            if (role === 'student') {
+                title.textContent = 'Student Login';
+                studentForm.style.display = 'block';
+                void studentForm.offsetWidth; // reflow for animation
+                studentForm.classList.add('show');
+            } else {
+                title.textContent = 'Teacher Login';
+                teacherForm.style.display = 'block';
+                void teacherForm.offsetWidth;
+                teacherForm.classList.add('show');
+            }
+        }
+        
+        function closeLogin() {
+            document.getElementById('loginCard').classList.remove('active');
+            document.querySelector('.overlay').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

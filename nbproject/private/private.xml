@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/database/DBConnection.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/Student_teacher_index.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/login/LogoutServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/database/CreateDB.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/dashboard_student.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/ViewProfileServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/ViewGradesServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/ViewAnnouncementsServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/ViewCalendarServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/login/SessionCheckFilter.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/TeacherGradesServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/UpdateGradeServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/TeacherAnnouncementsServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/PostAnnouncementServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/DeleteAnnouncementServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/dashboard_teacher.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/TeacherCalendarServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/TeacherProfileServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/TeacherDashboardServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/FileUploadUtil.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/servlets/DownloadAttachmentServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/registrar_login.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/admin_login.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/admindashboard.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/web/registrardashboard.html</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/login/LoginServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/register/AddStudentServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/register/UpdateStudentServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/register/DeleteStudentServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/register/SearchStudentServlet.java</file>
+            <file>file:/C:/Users/user/Desktop/WebApplication1/src/java/register/DashboardServlet.java</file>
+        </group>
+    </open-files>
+</project-private>
