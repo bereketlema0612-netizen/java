@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(231,76,60,0.3);
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(231,76,60,0.4);
+        }
+
+        .menu {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu a {
+            margin-right: 25px;
+            text-decoration: none;
+            color: #555;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .menu a:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(52,152,219,0.35);
+        }
+
+        .menu a.active {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(52,152,219,0.4);
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 40px;
+        }
+
+        /* Welcome Section */
+        .welcome-container {
+            text-align: center;
+            padding: 50px 30px;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5rem;
+            color: #2ecc71;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .welcome-text {
+            font-size: 1.1rem;
+            color: #34495e;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+
+        .school-motto {
+            font-style: italic;
+            color: #2c3e50;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            background: #f8f9fa;
+            padding: 15px 30px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            border: 2px solid #e0e7ff;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            margin: 40px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            text-align: center;
+            border-top: 5px solid #2196F3;
+            transition: all 0.3s;
+            backdrop-filter: blur(18px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 35px rgba(33,150,243,0.25);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #2196F3;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            margin: 50px 0;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+
+        .activity-list {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            overflow: hidden;
+            backdrop-filter: blur(18px);
+        }
+
+        .activity-item {
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .activity-item:hover {
+            background: #f9f9f9;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #f0f5ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 40px;
+            margin-top: 60px;
+            text-align: center;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #2d4a7a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .menu {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .menu a {
+                margin: 5px;
+                padding: 8px 15px;
+            }
+            
+            .main-container {
+                padding: 0 20px;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-subtitle {
+                font-size: 1.3rem;
+            }
+        }
+
+        /* ===== REGISTRATION SPECIFIC STYLES ===== */
+        /* Action Cards for Registration */
+        .action-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .action-card {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(18px);
+            border-top: 5px solid #3498db;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 35px rgba(52,152,219,0.25);
+        }
+
+        .action-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .action-card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .action-card button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .action-card button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255,255,255,0.95);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            margin: 30px 0;
+            display: none;
+            backdrop-filter: blur(18px);
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .form-header h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: #f0f5ff;
+            color: #666;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #e0e7ff;
+            color: #2c3e50;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+        }
+
+        .form-control.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid #eaeaea;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
+        }
+
+        .btn-success {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(39,174,96,0.3);
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(243,156,18,0.3);
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+
+        /* Search Form */
+        .search-form {
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            margin-bottom: 25px;
+            display: none;
+            backdrop-filter: blur(18px);
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Search Results Table */
+        .search-results-container {
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            margin: 30px 0;
+            display: none;
+            backdrop-filter: blur(18px);
+        }
+
+        /* Table */
+        .table-container {
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            overflow-x: auto;
+            display: none;
+            backdrop-filter: blur(18px);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .data-table th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            color: #2c3e50;
+            font-weight: 600;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 14px;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .data-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-inactive {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .status-transferred {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .edit-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #2980b9;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #3498db;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #7f8c8d;
+        }
+
+        .empty-state h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        /* Hidden sections */
+        .hidden-section {
+            display: none;
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            box-shadow: 0 5px 15px rgba(46,204,113,0.3);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            box-shadow: 0 5px 15px rgba(231,76,60,0.3);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Unique field indicator */
+        .unique-field {
+            position: relative;
+        }
+
+        .unique-field::after {
+            content: 'Unique';
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            background: #3498db;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+    
+    <!-- Header -->
+    <div class="header">
+        <h1>Registrar Dashboard</h1>
+        <div>
+            <span style="margin-right: 20px;">Welcome, Registrar!</span>
+            <button class="logout-btn" onclick="location.href='logout'">Logout</button>
+        </div>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+        <a href="#dashboard" class="active" onclick="showSection('dashboard')">🏠 Dashboard</a>
+        <a href="#registration" onclick="showSection('registration')">📝 Student Registration</a>
+        <a href="#enrollment" onclick="showSection('enrollment')">📚 Enrollment</a>
+        <a href="#records" onclick="showSection('records')">📁 Student Records</a>
+        <a href="#documents" onclick="showSection('documents')">📄 Certificates</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- DASHBOARD SECTION -->
+        <div id="section-dashboard" class="section">
+            <!-- Welcome Section -->
+            <div class="welcome-container">
+                <h1 class="welcome-title">Welcome to Registrar Portal</h1>
+                <h2 class="welcome-subtitle">Bense Secondary High School</h2>
+                <p class="welcome-text">
+                    Manage student registrations, track academic records, and oversee administrative tasks 
+                    with our comprehensive school management system. Your efficiency drives student success!
+                </p>
+                <p class="school-motto">"Managing Excellence, Building Futures"</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <h2 class="section-title">Academic Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👨‍🎓</div>
+                        <div class="stat-value" id="totalStudents">0</div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-value" id="newAdmissions">0</div>
+                        <div class="stat-label">New Admissions</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-value" id="pendingRequests">0</div>
+                        <div class="stat-label">Pending Requests</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-value" id="todayEnrollments">0</div>
+                        <div class="stat-label">Today's Enrollments</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">👨‍🎓</div>
+                        <div class="activity-content">
+                            <div class="activity-title">New student registered: John Doe (Grade 10-A)</div>
+                            <div class="activity-time">Today, 10:30 AM</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">📝</div>
+                        <div class="activity-content">
+                            <div class="activity-title">5 students promoted to next grade level</div>
+                            <div class="activity-time">Yesterday, 2:45 PM</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">📄</div>
+                        <div class="activity-content">
+                            <div class="activity-title">3 transcript requests processed</div>
+                            <div class="activity-time">Dec 15, 2024, 9:00 AM</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">📚</div>
+                        <div class="activity-content">
+                            <div class="activity-title">Section assignments updated for Grade 11</div>
+                            <div class="activity-time">Dec 20, 2024, 5:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="recent-activity">
+                <h2 class="section-title">Quick Access</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" onclick="showSection('registration')" style="cursor: pointer;">
+                        <div class="stat-icon">👨‍🎓</div>
+                        <h3 style="color: #2c3e50; margin-bottom: 10px;">Student Registration</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Register new students and manage existing records</p>
+                        <button style="background: #2196F3; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Go to Registration</button>
+                    </div>
+                    
+                    <div class="stat-card" onclick="showSection('records')" style="cursor: pointer;">
+                        <div class="stat-icon">📁</div>
+                        <h3 style="color: #2c3e50; margin-bottom: 10px;">Student Records</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Access and manage comprehensive student records</p>
+                        <button style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">View Records</button>
+                    </div>
+                    
+                    <div class="stat-card" onclick="showSection('documents')" style="cursor: pointer;">
+                        <div class="stat-icon">📄</div>
+                        <h3 style="color: #2c3e50; margin-bottom: 10px;">Certificates</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Generate certificates and official documents</p>
+                        <button style="background: #FF9800; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Generate Documents</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REGISTRATION SECTION -->
+        <div id="section-registration" class="section hidden-section">
+            <div class="welcome-container">
+                <h1 class="welcome-title">Student Registration Management</h1>
+                <p class="welcome-text">
+                    Manage student registrations, search existing records, and add new students to the system.
+                </p>
+            </div>
+
+            <!-- Action Cards -->
+            <div class="action-cards" id="actionCards">
+                <div class="action-card" onclick="showAddStudentForm()">
+                    <h3>Add New Student</h3>
+                    <p>Register a new student in the system with personal and guardian information.</p>
+                    <button>Add Student</button>
+                </div>
+
+                <div class="action-card" onclick="showSearchForm()">
+                    <h3>Search Students</h3>
+                    <p>Find students by ID, name, or grade level.</p>
+                    <button>Search Students</button>
+                </div>
+
+                <div class="action-card" onclick="showAllStudents()">
+                    <h3>View All Students</h3>
+                    <p>Browse complete list of registered students.</p>
+                    <button>View All</button>
+                </div>
+            </div>
+
+            <!-- Add Student Form -->
+            <div class="form-container" id="addStudentForm">
+                <div class="form-header">
+                    <h3>Add New Student</h3>
+                    <button class="close-btn" onclick="hideAllForms()">✕</button>
+                </div>
+                <form id="studentForm" onsubmit="return handleSubmit(event)">
+                    <input type="hidden" id="student_id">
+                    <input type="hidden" id="user_id">
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="first_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="last_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth *</label>
+                            <input type="date" id="dob" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="gender" class="form-control" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Grade Level</label>
+                            <select id="grade_level" class="form-control" required>
+                                <option value="">Select Grade</option>
+                                <option value="9">Grade 9</option>
+                                <option value="10">Grade 10</option>
+                                <option value="11">Grade 11</option>
+                                <option value="12">Grade 12</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Section</label>
+                            <input type="text" id="section" class="form-control" placeholder="A, B, C" required>
+                        </div>
+                        <div class="form-group unique-field">
+                            <label>Email Address </label>
+                            <input type="email" id="email" class="form-control" required >
+                        </div>
+                        <div class="form-group unique-field">
+                            <label>Phone Number </label>
+                            <input type="tel" id="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea id="address" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Parent/Guardian Name</label>
+                            <input type="text" id="parent_name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Parent Phone</label>
+                            <input type="tel" id="parent_phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Registration Status </label>
+                            <select id="registration_status" class="form-control" required>
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Transferred">Transferred</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success" id="submitBtn">Save Student</button>
+                        <button type="button" class="btn btn-warning" onclick="resetForm()">Reset Form</button>
+                        <button type="button" class="btn btn-secondary" onclick="hideAllForms()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Search Form -->
+            <div class="search-form" id="searchForm">
+                <div class="form-header">
+                    <h3>Search Students</h3>
+                    <button class="close-btn" onclick="hideAllForms()">✕</button>
+                </div>
+                <div class="search-grid">
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input type="text" id="searchStudentId" class="form-control" placeholder="STU10001">
+                    </div>
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="searchFirstName" class="form-control" placeholder="First name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="searchLastName" class="form-control" placeholder="Last name">
+                    </div>
+                    <div class="form-group">
+                        <label>Grade Level</label>
+                        <select id="searchGradeLevel" class="form-control">
+                            <option value="">All Grades</option>
+                            <option value="9">Grade 9</option>
+                            <option value="10">Grade 10</option>
+                            <option value="11">Grade 11</option>
+                            <option value="12">Grade 12</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="searchStudents()">Search</button>
+                    <button type="button" class="btn btn-warning" onclick="resetSearchForm()">Reset</button>
+                    <button type="button" class="btn btn-secondary" onclick="hideAllForms()">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Search Results -->
+            <div class="search-results-container" id="searchResults">
+                <div class="form-header">
+                    <h3>Search Results</h3>
+                    <button class="close-btn" onclick="hideSearchResults()">✕</button>
+                </div>
+                <div id="searchLoading" class="loading" style="display: none;">
+                    Searching students...
+                </div>
+                <div id="searchResultsContent">
+                    <!-- Results will be loaded here -->
+                </div>
+            </div>
+
+            <!-- All Students Table -->
+            <div class="table-container" id="studentsTable">
+                <div class="form-header">
+                    <h3>All Students</h3>
+                    <button class="close-btn" onclick="hideAllForms()">✕</button>
+                </div>
+                <div id="tableLoading" class="loading" style="display: none;">
+                    Loading students...
+                </div>
+                <div id="tableContainer">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Grade</th>
+                                <th>Section</th>
+                                <th>Gender</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="noResults" class="empty-state" style="display: none;">
+                    <h4>No students found</h4>
+                    <p>Click "Add New Student" to register a student</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ENROLLMENT SECTION -->
+        <div id="section-enrollment" class="section hidden-section">
+            <div class="welcome-container">
+                <h1 class="welcome-title">Enrollment & Sections Management</h1>
+                <p class="welcome-text">
+                    Manage student enrollment, class assignments, and section allocations for each academic year.
+                </p>
+            </div>
+            
+            <div class="activity-list" style="margin-top: 30px;">
+                <div class="activity-item">
+                    <div class="activity-icon">📚</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Manage Yearly Enrollment</div>
+                        <div class="activity-time">Enroll or re-enroll students for the current academic year</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📈</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Batch Promotion</div>
+                        <div class="activity-time">Promote students to next grade level or mark as repeaters</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">🏫</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Section Assignments</div>
+                        <div class="activity-time">Assign or change sections within each grade level</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📊</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Enrollment History</div>
+                        <div class="activity-time">View enrollment history per student and per academic year</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STUDENT RECORDS SECTION -->
+        <div id="section-records" class="section hidden-section">
+            <div class="welcome-container">
+                <h1 class="welcome-title">Student Records Management</h1>
+                <p class="welcome-text">
+                    Access and maintain comprehensive student records including personal data, academic history, and status tracking.
+                </p>
+            </div>
+            
+            <div class="activity-list" style="margin-top: 30px;">
+                <div class="activity-item">
+                    <div class="activity-icon">🔍</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Search Student Records</div>
+                        <div class="activity-time">Search by ID, name, grade, section, or status</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📄</div>
+                    <div class="activity-content">
+                        <div class="activity-title">View Profile Details</div>
+                        <div class="activity-time">Display complete profile including personal and academic information</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">✏️</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Update Student Information</div>
+                        <div class="activity-time">Edit address, contact info, guardian details, and other fields</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📊</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Track Status History</div>
+                        <div class="activity-time">View history of status changes: active, transferred, withdrawn, graduated</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CERTIFICATES SECTION -->
+        <div id="section-documents" class="section hidden-section">
+            <div class="welcome-container">
+                <h1 class="welcome-title">Certificates & Reports Generation</h1>
+                <p class="welcome-text">
+                    Generate official documents, certificates, and academic reports based on verified student data.
+                </p>
+            </div>
+            
+            <div class="activity-list" style="margin-top: 30px;">
+                <div class="activity-item">
+                    <div class="activity-icon">📜</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Enrollment Certificates</div>
+                        <div class="activity-time">Generate certificates for current students</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">🎓</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Completion Certificates</div>
+                        <div class="activity-time">Generate certificates for graduating students</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📑</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Academic Transcripts</div>
+                        <div class="activity-time">Compile transcripts from grades and subjects data</div>
+                    </div>
+                </div>
+                
+                <div class="activity-item">
+                    <div class="activity-icon">📊</div>
+                    <div class="activity-content">
+                        <div class="activity-title">Summary Reports</div>
+                        <div class="activity-time">Generate reports for school leadership and administration</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#dashboard" onclick="showSection('dashboard')">Home</a>
+                <a href="#registration" onclick="showSection('registration')">Registration</a>
+                <a href="#enrollment" onclick="showSection('enrollment')">Enrollment</a>
+                <a href="#records" onclick="showSection('records')">Records</a>
+                <a href="#documents" onclick="showSection('documents')">Certificates</a>
+            </div>
+            <div class="copyright">
+                © 2024 Bense Secondary High School - Registrar Portal. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Current state
+        let currentAction = 'add';
+        let currentView = 'cards';
+        let uniqueEmailCheck = false;
+        let uniquePhoneCheck = false;
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Show specific section and update menu
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(sec => {
+                sec.classList.remove('hidden-section');
+                sec.style.display = 'none';
+            });
+            
+            // Show selected section
+            const sectionElement = document.getElementById('section-' + section);
+            if (sectionElement) {
+                sectionElement.style.display = 'block';
+                
+                // If registration section is shown, reset to cards view
+                if (section === 'registration') {
+                    showActionCards();
+                    updateDashboardCounts();
+                }
+                
+                // If dashboard section is shown, update counts
+                if (section === 'dashboard') {
+                    updateDashboardCounts();
+                }
+            }
+
+            // Update menu active state
+            document.querySelectorAll('.menu a').forEach(a => {
+                a.classList.remove('active');
+                const href = a.getAttribute('href');
+                if (href === '#' + section) {
+                    a.classList.add('active');
+                }
+            });
+        }
+
+        // Show action cards
+        function showActionCards() {
+            hideAllForms();
+            document.getElementById('actionCards').style.display = 'grid';
+            currentView = 'cards';
+        }
+
+        // Show add student form
+        function showAddStudentForm() {
+            document.getElementById('actionCards').style.display = 'none';
+            document.getElementById('addStudentForm').style.display = 'block';
+            document.getElementById('searchForm').style.display = 'none';
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('studentsTable').style.display = 'none';
+            
+            currentAction = 'add';
+            document.getElementById('submitBtn').textContent = 'Save Student';
+            resetForm();
+            currentView = 'form';
+        }
+
+        // Show search form
+        function showSearchForm() {
+            document.getElementById('actionCards').style.display = 'none';
+            document.getElementById('addStudentForm').style.display = 'none';
+            document.getElementById('searchForm').style.display = 'block';
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('studentsTable').style.display = 'none';
+            currentView = 'search';
+        }
+
+        // Show all students table
+        function showAllStudents() {
+            document.getElementById('actionCards').style.display = 'none';
+            document.getElementById('addStudentForm').style.display = 'none';
+            document.getElementById('searchForm').style.display = 'none';
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('studentsTable').style.display = 'block';
+            loadStudents();
+            currentView = 'table';
+        }
+
+        // Hide all forms and show cards
+        function hideAllForms() {
+            document.getElementById('addStudentForm').style.display = 'none';
+            document.getElementById('searchForm').style.display = 'none';
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('studentsTable').style.display = 'none';
+            document.getElementById('actionCards').style.display = 'grid';
+            currentView = 'cards';
+        }
+
+        // Hide search results
+        function hideSearchResults() {
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('searchForm').style.display = 'block';
+        }
+
+        // Show edit student form
+        function showEditForm(student) {
+            document.getElementById('actionCards').style.display = 'none';
+            document.getElementById('addStudentForm').style.display = 'block';
+            document.getElementById('searchForm').style.display = 'none';
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('studentsTable').style.display = 'none';
+            
+            currentAction = 'edit';
+            document.getElementById('submitBtn').textContent = 'Update Student';
+            
+            // Fill form with student data
+            document.getElementById('student_id').value = student.student_id || '';
+            document.getElementById('user_id').value = student.user_id || '';
+            document.getElementById('first_name').value = student.first_name || '';
+            document.getElementById('last_name').value = student.last_name || '';
+            document.getElementById('dob').value = student.dob || '';
+            document.getElementById('gender').value = student.gender || '';
+            document.getElementById('email').value = student.email || '';
+            document.getElementById('phone').value = student.phone || '';
+            document.getElementById('grade_level').value = student.grade_level || '';
+            document.getElementById('section').value = student.section || '';
+            document.getElementById('address').value = student.address || '';
+            document.getElementById('parent_name').value = student.parent_name || '';
+            document.getElementById('parent_phone').value = student.parent_phone || '';
+            document.getElementById('registration_status').value = student.registration_status || 'Active';
+            
+            // Don't check uniqueness for edit mode for the same student
+            uniqueEmailCheck = true;
+            uniquePhoneCheck = true;
+            
+            currentView = 'form';
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('studentForm').reset();
+            document.getElementById('student_id').value = '';
+            document.getElementById('user_id').value = '';
+            document.getElementById('registration_status').value = 'Active';
+            
+            // Clear error messages
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('phone-error').style.display = 'none';
+            document.getElementById('email').classList.remove('error');
+            document.getElementById('phone').classList.remove('error');
+            
+            uniqueEmailCheck = false;
+            uniquePhoneCheck = false;
+            
+            // Set today's date as max for dob
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dob').max = today;
+        }
+
+        // Reset search form
+        function resetSearchForm() {
+            document.getElementById('searchStudentId').value = '';
+            document.getElementById('searchFirstName').value = '';
+            document.getElementById('searchLastName').value = '';
+            document.getElementById('searchGradeLevel').value = '';
+        }
+
+        // Check unique email
+        async function checkUniqueEmail(email) {
+            if (!email || currentAction === 'edit') return;
+            
+            try {
+                const response = await fetch('SearchStudentServlet?email=' + encodeURIComponent(email));
+                const htmlText = await response.text();
+                
+                // Parse HTML to check if email exists
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+                const tableRows = htmlDoc.querySelectorAll('.results-table tbody tr');
+                
+                if (tableRows.length > 0) {
+                    document.getElementById('email-error').style.display = 'block';
+                    document.getElementById('email').classList.add('error');
+                    uniqueEmailCheck = false;
+                } else {
+                    document.getElementById('email-error').style.display = 'none';
+                    document.getElementById('email').classList.remove('error');
+                    uniqueEmailCheck = true;
+                }
+            } catch (error) {
+                console.error('Error checking email:', error);
+            }
+        }
+
+        // Check unique phone
+        async function checkUniquePhone(phone) {
+            if (!phone || currentAction === 'edit') return;
+            
+            try {
+                const response = await fetch('SearchStudentServlet?phone=' + encodeURIComponent(phone));
+                const htmlText = await response.text();
+                
+                // Parse HTML to check if phone exists
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+                const tableRows = htmlDoc.querySelectorAll('.results-table tbody tr');
+                
+                if (tableRows.length > 0) {
+                    document.getElementById('phone-error').style.display = 'block';
+                    document.getElementById('phone').classList.add('error');
+                    uniquePhoneCheck = false;
+                } else {
+                    document.getElementById('phone-error').style.display = 'none';
+                    document.getElementById('phone').classList.remove('error');
+                    uniquePhoneCheck = true;
+                }
+            } catch (error) {
+                console.error('Error checking phone:', error);
+            }
+        }
+
+        // Handle form submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Validate required fields
+            if (!validateForm()) {
+                return false;
+            }
+            
+            // Check for unique fields in add mode
+            if (currentAction === 'add' && (!uniqueEmailCheck || !uniquePhoneCheck)) {
+                showNotification('Please ensure email and phone number are unique', 'error');
+                return false;
+            }
+            
+            const studentData = {
+                student_id: document.getElementById('student_id').value,
+                user_id: document.getElementById('user_id').value,
+                first_name: document.getElementById('first_name').value,
+                last_name: document.getElementById('last_name').value,
+                dob: document.getElementById('dob').value,
+                gender: document.getElementById('gender').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                grade_level: document.getElementById('grade_level').value,
+                section: document.getElementById('section').value.toUpperCase(),
+                address: document.getElementById('address').value,
+                parent_name: document.getElementById('parent_name').value,
+                parent_phone: document.getElementById('parent_phone').value,
+                registration_status: document.getElementById('registration_status').value
+            };
+            
+            try {
+                const url = currentAction === 'add' ? 'AddStudentServlet' : 'UpdateStudentServlet';
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(studentData)
+                });
+                
+                const result = await response.text();
+                
+                if (response.ok) {
+                    showNotification(
+                        currentAction === 'add' ? 'Student added successfully!' : 'Student updated successfully!',
+                        'success'
+                    );
+                    hideAllForms();
+                    updateDashboardCounts();
+                    
+                    // If we were in table view, refresh it
+                    if (currentView === 'table') {
+                        loadStudents();
+                    }
+                } else {
+                    showNotification('Error: ' + result, 'error');
+                }
+            } catch (error) {
+                showNotification('Error: ' + error.message, 'error');
+            }
+            return false;
+        }
+
+        // Validate form
+        function validateForm() {
+            const requiredFields = ['first_name', 'last_name', 'dob', 'gender', 'grade_level', 'section', 'email', 'phone'];
+          
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#ddd';
+                }
+            });
+            
+        }
+
+        // Load all students
+        async function loadStudents() {
+            try {
+                showLoading(true);
+                const response = await fetch('SearchStudentServlet');
+                const result = await response.text();
+                
+                if (response.ok) {
+                    displayStudentsInTable(result);
+                } else {
+                    throw new Error('Failed to load students');
+                }
+            } catch (error) {
+                console.error('Error loading students:', error);
+                document.getElementById('studentsTableBody').innerHTML = 
+                    `<tr>
+                        <td colspan="9" style="text-align: center; padding: 20px; color: #e74c3c;">
+                            Error loading students: ${error.message}
+                        </td>
+                    </tr>`;
+                document.getElementById('tableContainer').style.display = 'block';
+                document.getElementById('noResults').style.display = 'none';
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Search students
+        async function searchStudents() {
+            const searchParams = {
+                studentId: document.getElementById('searchStudentId').value.trim(),
+                firstName: document.getElementById('searchFirstName').value.trim(),
+                lastName: document.getElementById('searchLastName').value.trim(),
+                gradeLevel: document.getElementById('searchGradeLevel').value
+            };
+            
+            try {
+                showSearchLoading(true);
+                
+                // Build URL with parameters
+                let url = 'SearchStudentServlet?';
+                let params = [];
+                
+                if (searchParams.studentId) params.push('studentId=' + encodeURIComponent(searchParams.studentId));
+                if (searchParams.firstName) params.push('firstName=' + encodeURIComponent(searchParams.firstName));
+                if (searchParams.lastName) params.push('lastName=' + encodeURIComponent(searchParams.lastName));
+                if (searchParams.gradeLevel) params.push('gradeLevel=' + encodeURIComponent(searchParams.gradeLevel));
+                
+                url += params.join('&');
+                
+                const response = await fetch(url);
+                const result = await response.text();
+                
+                if (response.ok) {
+                    document.getElementById('searchForm').style.display = 'none';
+                    document.getElementById('searchResults').style.display = 'block';
+                    displaySearchResults(result, searchParams);
+                } else {
+                    throw new Error('Search failed');
+                }
+            } catch (error) {
+                console.error('Error searching students:', error);
+                showNotification('Search failed: ' + error.message, 'error');
+            } finally {
+                showSearchLoading(false);
+            }
+        }
+
+        // Display search results
+        function displaySearchResults(htmlText, searchParams) {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+            const tableBody = htmlDoc.querySelector('.results-table tbody');
+            const resultsContainer = document.getElementById('searchResultsContent');
+            
+            if (tableBody && tableBody.children.length > 0) {
+                let searchSummary = `<div class="search-summary" style="background: #e8f4fc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <strong>Search Criteria:</strong> `;
+                
+                let hasCriteria = false;
+                if (searchParams.studentId) {
+                    searchSummary += `Student ID: "${searchParams.studentId}" `;
+                    hasCriteria = true;
+                }
+                if (searchParams.firstName) {
+                    searchSummary += `First Name: "${searchParams.firstName}" `;
+                    hasCriteria = true;
+                }
+                if (searchParams.lastName) {
+                    searchSummary += `Last Name: "${searchParams.lastName}" `;
+                    hasCriteria = true;
+                }
+                if (searchParams.gradeLevel) {
+                    searchSummary += `Grade Level: ${searchParams.gradeLevel} `;
+                    hasCriteria = true;
+                }
+                if (!hasCriteria) {
+                    searchSummary += 'Showing all students';
+                }
+                searchSummary += ` | Found ${tableBody.children.length} student(s)</div>`;
+                
+                resultsContainer.innerHTML = searchSummary + `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Grade</th>
+                                <th>Section</th>
+                                <th>Gender</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        ${tableBody.outerHTML}
+                    </table>
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-secondary" onclick="hideSearchResults()">Back to Search</button>
+                    </div>
+                `;
+            } else {
+                resultsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <h4>No Students Found</h4>
+                        <p>No students match your search criteria.</p>
+                        <button class="btn btn-secondary" onclick="hideSearchResults()">Back to Search</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Display students in table
+        function displayStudentsInTable(htmlText) {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+            const tableBody = htmlDoc.querySelector('.results-table tbody');
+            
+            if (tableBody && tableBody.children.length > 0) {
+                document.getElementById('studentsTableBody').innerHTML = tableBody.innerHTML;
+                document.getElementById('tableContainer').style.display = 'block';
+                document.getElementById('noResults').style.display = 'none';
+            } else {
+                document.getElementById('tableContainer').style.display = 'none';
+                document.getElementById('noResults').style.display = 'block';
+            }
+        }
+
+        // Delete student
+        async function deleteStudent(studentId) {
+            if (!studentId) {
+                showNotification('Invalid student ID', 'error');
+                return;
+            }
+            
+            if (!confirm('Are you sure you want to delete this student? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch('DeleteStudentServlet', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ studentId: studentId })
+                });
+                
+                const result = await response.text();
+                
+                if (response.ok) {
+                    showNotification('Student deleted successfully!', 'success');
+                    // Reload table if in table view
+                    if (currentView === 'table') {
+                        loadStudents();
+                    }
+                    updateDashboardCounts();
+                } else {
+                    showNotification('Error: ' + result, 'error');
+                }
+            } catch (error) {
+                showNotification('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Show/hide loading
+        function showLoading(show) {
+            const loadingEl = document.getElementById('tableLoading');
+            if (loadingEl) {
+                loadingEl.style.display = show ? 'block' : 'none';
+            }
+            if (show) {
+                document.getElementById('tableContainer').style.display = 'none';
+                document.getElementById('noResults').style.display = 'none';
+            }
+        }
+
+        // Show/hide search loading
+        function showSearchLoading(show) {
+            const loadingEl = document.getElementById('searchLoading');
+            if (loadingEl) {
+                loadingEl.style.display = show ? 'block' : 'none';
+            }
+            if (show) {
+                document.getElementById('searchResultsContent').innerHTML = '';
+            }
+        }
+
+        // Get status class
+        function getStatusClass(status) {
+            status = (status || '').toLowerCase();
+            if (status.includes('active')) return 'active';
+            if (status.includes('pending')) return 'pending';
+            if (status.includes('inactive')) return 'inactive';
+            if (status.includes('transfer')) return 'transferred';
+            return 'inactive';
+        }
+
+        // Update dashboard counts from server
+        async function updateDashboardCounts() {
+            try {
+                const response = await fetch('SearchStudentServlet');
+                const htmlText = await response.text();
+                
+                // Parse HTML to count students
+                const parser = new DOMParser();
+                const htmlDoc = parser.parseFromString(htmlText, 'text/html');
+                const tableRows = htmlDoc.querySelectorAll('.results-table tbody tr');
+                
+                const studentCount = tableRows.length;
+                
+                document.getElementById('totalStudents').textContent = studentCount;
+                document.getElementById('newAdmissions').textContent = Math.floor(studentCount * 0.2);
+                document.getElementById('pendingRequests').textContent = Math.floor(studentCount * 0.05);
+                document.getElementById('todayEnrollments').textContent = Math.floor(studentCount * 0.01);
+                
+            } catch (error) {
+                console.error('Error updating dashboard counts:', error);
+                // Set default values
+                document.getElementById('totalStudents').textContent = '0';
+                document.getElementById('newAdmissions').textContent = '0';
+                document.getElementById('pendingRequests').textContent = '0';
+                document.getElementById('todayEnrollments').textContent = '0';
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show dashboard by default
+            showSection('dashboard');
+            
+            // Load dashboard data
+            updateDashboardCounts();
+            
+            // Set today's date as default for date inputs
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dob').max = today;
+            
+            // Set min date (assuming students must be at least 10 years old)
+            const minDate = new Date();
+            minDate.setFullYear(minDate.getFullYear() - 30);
+            document.getElementById('dob').min = minDate.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
