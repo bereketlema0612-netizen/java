@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>School Management System</title>
+    <title>School Management System – Bense High</title>
     <style>
+        /* ---------- RESET & GLOBAL (unchanged palette) ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -11,13 +12,12 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Match dashboard background */
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
 
-        /* Header similar to dashboard */
+        /* ---------- HEADER (identical to dashboard) ---------- */
         .header {
             background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: white;
@@ -45,7 +45,6 @@
             color: #e0e7ff;
         }
 
-        /* Header login buttons styled like dashboard menu buttons */
         .login-options {
             display: flex;
             gap: 15px;
@@ -72,14 +71,13 @@
             box-shadow: 0 3px 8px rgba(255,255,255,0.25);
         }
 
-        /* Container similar to dashboard main-container */
+        /* ---------- MAIN CONTAINER & WELCOME ---------- */
         .main-container {
             max-width: 1200px;
             margin: 30px auto;
             padding: 0 40px;
         }
 
-        /* Welcome box styled like dashboard welcome-container */
         .welcome-container {
             text-align: center;
             padding: 50px 30px;
@@ -136,7 +134,7 @@
             border: 2px solid #e0e7ff;
         }
 
-        /* About section styled like dashboard cards */
+        /* ---------- ABOUT SCHOOL (cards) ---------- */
         .about-school {
             background: rgba(255,255,255,0.95);
             padding: 35px;
@@ -195,150 +193,7 @@
             padding-bottom: 6px;
         }
 
-        /* Slide-in login panel: same palette */
-        .login-card-container {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 380px;
-            height: 100vh;
-            background: rgba(255,255,255,0.98);
-            box-shadow: -5px 0 25px rgba(0,0,0,0.18);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.4s ease;
-            backdrop-filter: blur(16px);
-        }
-
-        .login-card-container.active {
-            transform: translateX(0);
-        }
-
-        .login-card-header {
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-            color: white;
-            padding: 22px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .login-card-header h2 {
-            margin: 0;
-            font-size: 1.3rem;
-            font-weight: 500;
-        }
-
-        .close-login {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 22px;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-
-        .close-login:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .login-form-content {
-            padding: 25px 25px 30px 25px;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        /* Forms: slide from right */
-        .login-form {
-            opacity: 0;
-            transform: translateX(40px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .login-form.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .input-group {
-            margin-bottom: 18px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 11px 14px;
-            border: 2px solid #e0e7ff;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border 0.3s, box-shadow 0.3s;
-        }
-
-        .input-group input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
-        }
-
-        .form-submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-            box-shadow: 0 3px 10px rgba(52,152,219,0.35);
-        }
-
-        .form-submit-btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 14px rgba(52,152,219,0.45);
-        }
-
-        .login-help {
-            text-align: center;
-            margin-top: 18px;
-            color: #7f8c8d;
-            font-size: 13px;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.45);
-            z-index: 999;
-            display: none;
-        }
-
-        .overlay.active {
-            display: block;
-        }
-
-        /* Footer same palette as dashboard */
+        /* ---------- FOOTER (same as dashboard) ---------- */
         .footer {
             background: #2c3e50;
             color: white;
@@ -399,6 +254,203 @@
             color: #2ecc71;
         }
 
+        /* ---------- NEW LOGIN MODAL (exactly like second image) ---------- */
+        /* Overlay – darkens the main page background */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65); /* darkened main page */
+            z-index: 1000;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        /* Centered modal card */
+        .login-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 92%;
+            max-width: 460px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+            z-index: 1001;
+            display: none;
+            animation: fadeScale 0.28s ease;
+        }
+
+        .login-modal.active {
+            display: block;
+        }
+
+        @keyframes fadeScale {
+            0% { opacity: 0; transform: translate(-50%, -45%) scale(0.96); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .modal-content {
+            padding: 32px 32px 28px;
+        }
+
+        /* header – exactly as description: school name + admin login */
+        .modal-header {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .modal-header h1 {
+            color: #2c3e50;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .modal-header p {
+            color: #2ecc71;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: #f0fff4;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
+        }
+
+        /* Tabs – Student / Teacher switch */
+        .modal-tabs {
+            display: flex;
+            gap: 12px;
+            margin: 22px 0 18px;
+            background: #f1f5f9;
+            padding: 6px;
+            border-radius: 50px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 6px;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 15px;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.22s;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #2c3e50;
+            box-shadow: 0 4px 10px rgba(52,152,219,0.25);
+            border: 1px solid #3498db;
+        }
+
+        /* forms inside modal – only active one visible */
+        .modal-body .login-form {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .modal-body .login-form.active-form {
+            display: block;
+        }
+
+        /* keep original input styles but refined for modal */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 15px;
+            transition: all 0.2s;
+            background: #fafcff;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 4px rgba(52,152,219,0.15);
+            background: white;
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.28s;
+            margin-top: 12px;
+            letter-spacing: 0.7px;
+            box-shadow: 0 6px 14px rgba(52,152,219,0.35);
+        }
+
+        .form-submit-btn:hover {
+            background: #1f6a9a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(52,152,219,0.45);
+        }
+
+        /* Footer inside modal: back link + help */
+        .modal-footer {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .modal-footer a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .modal-footer a:hover {
+            border-bottom: 2px solid #3498db;
+            color: #3498db;
+        }
+
+        .login-help {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 16px;
+            font-weight: 500;
+            border-top: 1px solid #ecfdf5;
+            padding-top: 16px;
+        }
+
+        /* responsive adjustments */
         @media (max-width: 768px) {
             .header {
                 padding: 20px;
@@ -406,31 +458,20 @@
                 gap: 15px;
                 text-align: center;
             }
-
             .main-container {
                 padding: 0 20px;
             }
-
             .welcome-title {
                 font-size: 2rem;
             }
-
-            .welcome-subtitle {
-                font-size: 1.3rem;
-            }
-
-            .about-school {
-                padding: 25px;
-            }
-
-            .login-card-container {
-                width: 100%;
+            .modal-content {
+                padding: 28px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- HEADER unchanged – with login triggers -->
     <div class="header">
         <div class="header-content">
             <div class="school-info">
@@ -438,15 +479,15 @@
                 <p>Student Management System</p>
             </div>
             <div class="login-options">
+                <!-- These buttons now open the centered modal with dimmed background -->
                 <button class="login-btn" onclick="openLogin('student')">Student Login</button>
                 <button class="login-btn" onclick="openLogin('teacher')">Teacher Login</button>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- MAIN CONTENT (exactly as before) -->
     <div class="main-container">
-        <!-- Welcome Section -->
         <div class="welcome-container">
             <h1 class="welcome-title">Welcome to Bense High School</h1>
             <h2 class="welcome-subtitle">Student & Teacher Portal</h2>
@@ -457,13 +498,11 @@
             <p class="school-motto">"Empowering Minds, Building Futures"</p>
         </div>
 
-        <!-- About Section -->
         <div class="about-school">
             <h3 class="about-title">About Bense Secondary High School</h3>
             <p class="about-text">
                 Bense Secondary High School is a leading educational institution committed to providing quality education and holistic development for students. Established with a vision to create responsible citizens and future leaders, our school focuses on academic excellence, character building, and community service.
             </p>
-            
             <div class="about-features">
                 <div class="feature-item">
                     <strong>Our Mission</strong>
@@ -481,7 +520,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER unchanged -->
     <div class="footer">
         <div class="footer-content">
             <div class="contact-info">
@@ -501,7 +540,6 @@
                     <p>info@bensehigh.edu<br>support@bensehigh.edu</p>
                 </div>
             </div>
-            
             <div class="footer-links">
                 <a href="#">About School</a>
                 <a href="#">Academic Calendar</a>
@@ -509,95 +547,129 @@
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
             </div>
-            
             <div class="copyright">
                 © 2024 Bense Secondary High School. All rights reserved.
             </div>
         </div>
     </div>
 
-    <!-- header buttons already there -->
+    <!-- ========== NEW MODAL LOGIN – exactly as described in image.png ========== -->
+    <!-- Dark overlay (dim background) -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
 
-<!-- Slide-in Login Panel -->
-<div class="overlay" onclick="closeLogin()"></div>
-<div class="login-card-container" id="loginCard">
-    <div class="login-card-header">
-        <h2 id="login-title">Login to Portal</h2>
-        <button class="close-login" onclick="closeLogin()">×</button>
-    </div>
-    
-    <div class="login-form-content">
-        <!-- Student form -->
-        <form id="login-student-form" class="login-form" action="login" method="POST">
-            <div class="input-group">
-                <label for="login-student-username">Student ID / Username</label>
-                <input type="text" id="login-student-username" name="username" required>
+    <!-- Centered login card with tabs (Student/Teacher) -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <!-- Header: matches "Bense Secondary High School / Administrative System Login" -->
+            <div class="modal-header">
+                <h1>Bense Secondary High School</h1>
+                <p>Administrative System Login</p>
             </div>
-            <div class="input-group">
-                <label for="login-student-password">Password</label>
-                <input type="password" id="login-student-password" name="password" required>
+
+            <!-- Tabs for Student / Teacher – exactly like [Register Login] but for roles -->
+            <div class="modal-tabs">
+                <button class="tab-btn active" id="tabStudent" data-role="student" onclick="switchTab('student')">Student Login</button>
+                <button class="tab-btn" id="tabTeacher" data-role="teacher" onclick="switchTab('teacher')">Teacher Login</button>
             </div>
-            <input type="hidden" name="role" value="student">
-            <button type="submit" class="form-submit-btn">Login as Student</button>
-        </form>
-        
-        <!-- Teacher form -->
-        <form id="login-teacher-form" class="login-form" action="login" method="POST">
-            <div class="input-group">
-                <label for="login-teacher-username">Teacher ID / Username</label>
-                <input type="text" id="login-teacher-username" name="username" required>
+
+            <!-- Form container: two forms, only one visible via active-form class -->
+            <div class="modal-body">
+                <!-- Student login form -->
+                <form id="modal-student-form" class="login-form active-form" action="login" method="POST">
+                    <div class="input-group">
+                        <label for="modal-student-username">Student ID / Username</label>
+                        <input type="text" id="modal-student-username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="modal-student-password">Password</label>
+                        <input type="password" id="modal-student-password" name="password" required>
+                    </div>
+                    <input type="hidden" name="role" value="student">
+                    <button type="submit" class="form-submit-btn">Login</button>
+                </form>
+
+                <!-- Teacher login form -->
+                <form id="modal-teacher-form" class="login-form" action="login" method="POST">
+                    <div class="input-group">
+                        <label for="modal-teacher-username">Teacher ID / Username</label>
+                        <input type="text" id="modal-teacher-username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="modal-teacher-password">Password</label>
+                        <input type="password" id="modal-teacher-password" name="password" required>
+                    </div>
+                    <input type="hidden" name="role" value="teacher">
+                    <button type="submit" class="form-submit-btn">Login</button>
+                </form>
             </div>
-            <div class="input-group">
-                <label for="login-teacher-password">Password</label>
-                <input type="password" id="login-teacher-password" name="password" required>
+
+            <!-- Modal footer: Back to main page & help (as in description) -->
+            <div class="modal-footer">
+                <a href="#" onclick="closeModal(); return false;">← Back to Main Page</a>
+               
             </div>
-            <input type="hidden" name="role" value="teacher">
-            <button type="submit" class="form-submit-btn">Login as Teacher</button>
-        </form>
-        
-        <div class="login-help">
-            Forgot password? Contact system administrator
         </div>
     </div>
-</div>
 
-
+    <!-- ========== JAVASCRIPT: open/close, switch tabs, background dim ========== -->
     <script>
+        // Open modal with dimmed background – triggered by Student/Teacher buttons
         function openLogin(role) {
-            const card = document.getElementById('loginCard');
-            const overlay = document.querySelector('.overlay');
-            const title = document.getElementById('login-title');
-            const studentForm = document.getElementById('login-student-form');
-            const teacherForm = document.getElementById('login-teacher-form');
-
-            // show panel + overlay
-            card.classList.add('active');
+            const overlay = document.getElementById('modalOverlay');
+            const modal = document.getElementById('loginModal');
+            
+            // show overlay and modal
             overlay.classList.add('active');
+            modal.classList.add('active');
+            
+            // set the correct tab and form based on role
+            switchTab(role);
+        }
 
-            // hide both forms first
-            [studentForm, teacherForm].forEach(form => {
-                form.classList.remove('show');
-                form.style.display = 'none';
-            });
+        // Close modal and remove overlay
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.getElementById('loginModal').classList.remove('active');
+        }
 
-            // show only the requested form, with slide-from-right animation
+        // Switch between Student and Teacher forms + update active tab
+        function switchTab(role) {
+            // update tab buttons active state
+            const tabStudent = document.getElementById('tabStudent');
+            const tabTeacher = document.getElementById('tabTeacher');
+            
             if (role === 'student') {
-                title.textContent = 'Student Login';
-                studentForm.style.display = 'block';
-                void studentForm.offsetWidth; // reflow for animation
-                studentForm.classList.add('show');
+                tabStudent.classList.add('active');
+                tabTeacher.classList.remove('active');
             } else {
-                title.textContent = 'Teacher Login';
-                teacherForm.style.display = 'block';
-                void teacherForm.offsetWidth;
-                teacherForm.classList.add('show');
+                tabTeacher.classList.add('active');
+                tabStudent.classList.remove('active');
+            }
+
+            // show corresponding form, hide the other
+            const studentForm = document.getElementById('modal-student-form');
+            const teacherForm = document.getElementById('modal-teacher-form');
+            
+            if (role === 'student') {
+                studentForm.classList.add('active-form');
+                teacherForm.classList.remove('active-form');
+            } else {
+                teacherForm.classList.add('active-form');
+                studentForm.classList.remove('active-form');
             }
         }
-        
-        function closeLogin() {
-            document.getElementById('loginCard').classList.remove('active');
-            document.querySelector('.overlay').classList.remove('active');
-        }
+
+        // Optional: prevent click inside modal from closing it (event propagation)
+        document.getElementById('loginModal')?.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
