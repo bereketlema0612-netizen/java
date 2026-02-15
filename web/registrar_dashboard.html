@@ -143,12 +143,11 @@
         </div>
     </div>
 
-    <!-- Menu -->
+    <!-- Menu (Student Records link removed) -->
     <div class="menu">
         <a href="#dashboard" class="active" onclick="showSection('dashboard')">🏠 Dashboard</a>
         <a href="#registration" onclick="showSection('registration')">📝 Student Registration</a>
         <a href="#enrollment" onclick="showSection('enrollment')">📚 Enrollment</a>
-        <a href="#records" onclick="showSection('records')">📁 Student Records</a>
         <a href="#certificates" onclick="showSection('certificates')">📄 Certificates</a>
     </div>
 
@@ -294,7 +293,7 @@
             </div>
         </div>
 
-        <!-- ENROLLMENT SECTION (unchanged) -->
+        <!-- ENROLLMENT SECTION (Search Enrollments card removed) -->
         <div id="section-enrollment" class="section hidden-section">
             <div class="welcome-container">
                 <h1 class="welcome-title">Enrollment & Sections Management</h1>
@@ -307,11 +306,7 @@
                     <p>Enroll a student for a specific academic year, grade, and section.</p>
                     <button>Add Enrollment</button>
                 </div>
-                <div class="action-card" onclick="showSearchEnrollmentForm()">
-                    <h3>Search Enrollments</h3>
-                    <p>Find enrollments by student, grade, academic year, or status.</p>
-                    <button>Search Enrollments</button>
-                </div>
+                <!-- Search Enrollments card removed -->
                 <div class="action-card" onclick="showBatchPromotionForm()">
                     <h3>Batch Promotion</h3>
                     <p>Promote students based on grades (promote if failing subjects < 3).</p>
@@ -388,6 +383,7 @@
                 </form>
             </div>
 
+            <!-- Search Enrollment Form (still present but no card to access it) -->
             <div class="search-form" id="searchEnrollmentForm">
                 <div class="form-header">
                     <h3>Search Enrollments</h3>
@@ -519,37 +515,7 @@
             </div>
         </div>
 
-        <!-- RECORDS SECTION (placeholder) -->
-        <div id="section-records" class="section hidden-section">
-            <div class="welcome-container">
-                <h1 class="welcome-title">Student Records Management</h1>
-                <p class="welcome-text">Access and maintain comprehensive student records.</p>
-            </div>
-            <div class="action-cards">
-                <div class="action-card" onclick="alert('Search Student Records – to be implemented')">
-                    <h3>Search Records</h3>
-                    <p>Search by ID, name, grade, section, or status.</p>
-                    <button>Search</button>
-                </div>
-                <div class="action-card" onclick="alert('View Profile Details – to be implemented')">
-                    <h3>View Profile</h3>
-                    <p>Display complete profile including personal and academic information.</p>
-                    <button>View</button>
-                </div>
-                <div class="action-card" onclick="alert('Update Student Information – to be implemented')">
-                    <h3>Update Information</h3>
-                    <p>Edit address, contact info, guardian details.</p>
-                    <button>Update</button>
-                </div>
-                <div class="action-card" onclick="alert('Track Status History – to be implemented')">
-                    <h3>Status History</h3>
-                    <p>View history of status changes.</p>
-                    <button>View History</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- CERTIFICATES SECTION (updated with search interface) -->
+        <!-- CERTIFICATES SECTION (unchanged) -->
         <div id="section-certificates" class="section hidden-section">
             <div class="welcome-container">
                 <h1 class="welcome-title">Certificates & Reports Generation</h1>
@@ -573,12 +539,7 @@
                     <p>Compile transcripts from grades and subjects data.</p>
                     <button>Select</button>
                 </div>
-                <div class="action-card" onclick="location.href='CertificateServlet?type=summary'">
-                    <h3>Summary Reports</h3>
-                    <p>Generate reports for school leadership.</p>
-                    <button>Generate</button>
-                </div>
-            </div>
+                
 
             <!-- Certificate Search Section (appears below cards) -->
             <div class="certificate-search-section" id="certificateSearchSection">
@@ -622,14 +583,13 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer (Records link removed) -->
     <div class="footer">
         <div class="footer-content">
             <div class="footer-links">
                 <a href="#dashboard" onclick="showSection('dashboard')">Home</a>
                 <a href="#registration" onclick="showSection('registration')">Registration</a>
                 <a href="#enrollment" onclick="showSection('enrollment')">Enrollment</a>
-                <a href="#records" onclick="showSection('records')">Records</a>
                 <a href="#certificates" onclick="showSection('certificates')">Certificates</a>
             </div>
             <div class="copyright">© 2024 Bense Secondary High School - Registrar Portal</div>
