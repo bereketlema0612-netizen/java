@@ -44,8 +44,8 @@ public class LoginServlet extends HttpServlet {
                 } else if ("teacher".equals(role)) {
                     response.sendRedirect("dashboard_teacher.html");
                 } else if ("registrar".equals(role)) {
-                    response.sendRedirect("registrardashboard.html");
-                } else if ("admin".equals(role)) {
+                     response.sendRedirect("registrar_dashboard.html");
+                 } else if ("admin".equals(role)) {
                     response.sendRedirect("admindashboard.html");
                 } 
                 return;
@@ -55,8 +55,8 @@ public class LoginServlet extends HttpServlet {
             if ("student".equals(role) || "teacher".equals(role)) {
                 response.sendRedirect("Student_teacher_index.html?error=1");
             } else if ("registrar".equals(role)) {
-                response.sendRedirect("registrar_login.html?error=1");
-            } else if ("admin".equals(role)) {
+                 response.sendRedirect("registrar_login.html?error=1");
+}                    else if ("admin".equals(role)) {
                 response.sendRedirect("admin_login.html?error=1");
             }
             

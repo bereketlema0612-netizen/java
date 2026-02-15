@@ -201,3 +201,14 @@ INSERT INTO users (user_id, username, password, role, is_active, created_at, las
 (29, 'bbeka17', 'default123', 'student', 1, '2026-02-03 01:55:46', NULL, 'bereketlema0612@gmail.com');
 
 
+CREATE TABLE notifications (
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    is_read TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE
+);
+
+
+ALTER TABLE enrollments MODIFY enrollment_type ENUM('New','Re-enrollment','Transfer','Promotion');
